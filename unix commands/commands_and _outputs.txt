@@ -1,0 +1,642 @@
+#1
+cat command
+
+
+eg: cat filename, cat -n filename
+    cat > newFileName
+    cat filename1 > filename2 (copying)
+
+Sample output:
+
+[sougata@localhost unix_temp]$ cat > new.txt
+this is the inside of new.txt
+[sougata@localhost unix_temp]$ ls
+new.txt
+[sougata@localhost unix_temp]$ cat new.txt
+this is the inside of new.txt
+[sougata@localhost unix_temp]$ cat new.txt > copy.txt
+[sougata@localhost unix_temp]$ ls
+copy.txt new.txt
+
+
+#2 
+cd command
+
+
+eg: cd /
+    cd ..
+    cd /path/to/directory/
+
+Sample output:
+
+[sougata@localhost unix_temp]$ cd ..
+[sougata@localhost ~]$ cd unix_temp/
+[sougata@localhost unix_temp]$ pwd
+/home/sougata/unix_temp
+
+
+#3
+cp command
+
+
+eg: cp filename1 filename2 directoryName
+
+Sample output:
+
+[sougata@localhost unix_temp]$ mkdir copies
+[sougata@localhost unix_temp]$ ls copies/
+new.txt
+
+#4
+ls command
+eg: ls
+    ls -l, ls -t
+
+Sample output:
+
+[sougata@localhost unix_temp]$ ls
+copies  copy.txt  hello.txt  new.txt
+[sougata@localhost unix_temp]$ ls -l
+total 12
+drwxrwxr-x. 2 sougata sougata 21 Jan 13 02:42 copies
+-rw-rw-r--. 1 sougata sougata 30 Jan 13 02:40 copy.txt
+-rw-rw-r--. 1 sougata sougata 32 Jan 13 02:38 hello.txt
+-rw-rw-r--. 1 sougata sougata 30 Jan 13 02:39 new.txt
+[sougata@localhost unix_temp]$ ls -a
+.  ..  copies  copy.txt  hello.txt  new.txt
+
+    
+#5, #6, #7, #8, #9
+pwd
+mkdir dirname
+rmdir dirname, 
+rm -rf dirname
+rm filename
+
+Sample output:
+
+[sougata@localhost unix_temp]$ pwd
+/home/sougata/unix_temp
+[sougata@localhost unix_temp]$ ls
+copies  copy.txt  hello.txt  new.txt
+[sougata@localhost unix_temp]$ rm hello.txt
+[sougata@localhost unix_temp]$ ls
+copies  copy.txt  new.txt
+[sougata@localhost unix_temp]$ mkdir temp
+[sougata@localhost unix_temp]$ ls
+copies  copy.txt  new.txt  temp
+[sougata@localhost unix_temp]$ rmdir temp/
+[sougata@localhost unix_temp]$ ls
+copies  copy.txt  new.txt
+[sougata@localhost unix_temp]$ rm -rf copies
+[sougata@localhost unix_temp]$ ls
+copy.txt  new.txt
+
+#10
+touch filename (createfile, Updates access and 		modification time)
+
+Sample output:
+
+[sougata@localhost unix_temp]$ touch another.txt
+[sougata@localhost unix_temp]$ ls
+another.txt  copy.txt  new.txt
+
+#11
+chmod
+
+eg: chmod +rx filename
+
+Sample output:
+
+[sougata@localhost unix_temp]$ chmod u+x,g-w new.txt
+[sougata@localhost unix_temp]$ ls -l
+total 8
+-rw-rw-r--. 1 sougata sougata  0 Jan 13 02:46 another.txt
+-rw-rw-r--. 1 sougata sougata 30 Jan 13 02:40 copy.txt
+-rwxr--r--. 1 sougata sougata 30 Jan 13 02:39 new.txt
+
+#12
+tail filename (displays last 10 lines)
+
+eg: tail -n 5 filename
+
+Sample output:
+
+[sougata@localhost unix_temp]$ tail quotes.txt
+Death is so terribly final, while life is full of possibilities.
+
+Sleep is good, he said. And books are better.
+
+It is one thing to be clever and another to be wise.
+
+A ruler who hides behind paid executioners soon forgets what death is.
+
+Give me honorable enemies rather than ambitious ones, and
+I'll sleep more easily by night.
+
+[sougata@localhost unix_temp]$ tail -n 8 quotes.txt
+Sleep is good, he said. And books are better.
+
+It is one thing to be clever and another to be wise.
+
+A ruler who hides behind paid executioners soon forgets what death is.
+
+Give me honorable enemies rather than ambitious ones, and
+I'll sleep more easily by night.
+
+
+#13
+head filename (displays first 10 lines)
+
+eg: head -n 5 filename
+
+Sample output:
+
+[sougata@localhost unix_temp]$ head quotes.txt
+
+A reader lives a thousand lives before he dies, said Jojen.
+The man who never reads lives only one.
+
+Bran thought about it. 'Can a man still be brave if he's afraid?'
+'That is the only time a man can be brave,' his father told him.
+
+Love is poison. A sweet poison, yes, but it will kill you all the same.
+
+Laughter is poison to fear.
+
+[sougata@localhost unix_temp]$ head -n 8 quotes.txt
+
+A reader lives a thousand lives before he dies, said Jojen.
+The man who never reads lives only one.
+
+Bran thought about it. 'Can a man still be brave if he's afraid?'
+'That is the only time a man can be brave,' his father told him.
+
+Love is poison. A sweet poison, yes, but it will kill you all the same.
+
+
+#14
+mv command
+
+eg: mv oldName.txt newName.txt
+
+Sample output:
+
+[sougata@localhost unix_temp]$ ls
+another.txt  copy.txt  new.txt  quotes.txt
+[sougata@localhost unix_temp]$ mv quotes.txt GeorgeMartinQuotes.txt
+[sougata@localhost unix_temp]$ ls
+another.txt  copy.txt  GeorgeMartinQuotes.txt  new.txt
+[sougata@localhost unix_temp]$
+
+#15
+grep command
+
+
+eg: grep -i "UNix" toSearchFile.txt
+    (case insen.)
+    grep -c "UNix" toSearchFile.txt
+    (counts matching patterns)
+    grep -l "unix" *
+    (to search for pattern in filenames)
+    grep -w "unix" file.txt
+    (finds whole words, not substr)
+    grep "^unix" file.txt
+    ( ^ regular expression pattern specifies the start of a line, use $ for end)
+    grep –f pattern.txt  file.txt
+    pattern.txt -> contains regexs, one per line
+
+
+    -n for linenumbers
+    -v for mismatched parts
+
+Sample output:
+
+[sougata@localhost unix_temp]$ grep -i "brave" GeorgeMartinQuotes.txt
+Bran thought about it. 'Can a man still be brave if he's afraid?'
+'That is the only time a man can be brave,' his father told him.
+[sougata@localhost unix_temp]$ grep -c "brave" GeorgeMartinQuotes.txt
+2
+[sougata@localhost unix_temp]$ grep -c "brave" *
+another.txt:0
+copy.txt:0
+GeorgeMartinQuotes.txt:2
+new.txt:0
+[sougata@localhost unix_temp]$ grep -w "brave" GeorgeMartinQuotes.txt
+Bran thought about it. 'Can a man still be brave if he's afraid?'
+'That is the only time a man can be brave,' his father told him.
+[sougata@localhost unix_temp]$ grep -w "^Give" GeorgeMartinQuotes.txt
+Give me honorable enemies rather than ambitious ones, and
+[sougata@localhost unix_temp]$ grep "ght.$" GeorgeMartinQuotes.txt
+I'll sleep more easily by night.
+[sougata@localhost unix_temp]$ grep "ght.$" GeorgeMartinQuotes.txt -v
+
+A reader lives a thousand lives before he dies, said Jojen.
+The man who never reads lives only one.
+
+Bran thought about it. 'Can a man still be brave if he's afraid?'
+'That is the only time a man can be brave,' his father told him.
+
+Love is poison. A sweet poison, yes, but it will kill you all the same.
+
+Laughter is poison to fear.
+
+Death is so terribly final, while life is full of possibilities.
+
+Sleep is good, he said. And books are better.
+
+It is one thing to be clever and another to be wise.
+
+A ruler who hides behind paid executioners soon forgets what death is.
+
+Give me honorable enemies rather than ambitious ones, and
+
+#16
+tree command
+
+eg: tree -a ./dirname
+Display the tree hierarchy of a directory
+    
+Sample output:
+
+[sougata@localhost unix_temp]$ tree
+.
+├── another.txt
+├── copy.txt
+├── GeorgeMartinQuotes.txt
+└── new.txt
+
+0 directories, 4 files
+[sougata@localhost unix_temp]$ cd ..
+[sougata@localhost ~]$ tree unix_temp/
+unix_temp/
+├── another.txt
+├── copy.txt
+├── GeorgeMartinQuotes.txt
+└── new.txt
+
+0 directories, 4 files
+
+#17
+find command
+(searching by file, folder, name, creation date, modification date, owner and permissions)
+
+
+eg: find [where to start searching from]
+    [expression determines what to find] [-options] [what to find]
+
+
+    find ./dirname -name sample.txt
+
+Sample output:
+
+[sougata@localhost ~]$ find ./unix_temp -name new.txt
+./unix_temp/new.txt
+
+
+#18
+more
+
+eg: more -d sample.txt
+    (displays one screen at a time if file is large, with navigation444)
+
+Sample output:
+
+[sougata@localhost unix_temp]$ more -d GeorgeMartinQuotes.txt
+
+A reader lives a thousand lives before he dies, said Jojen.
+The man who never reads lives only one.
+
+Bran thought about it. 'Can a man still be brave if he's afraid?'
+'That is the only time a man can be brave,' his father told him.
+
+Love is poison. A sweet poison, yes, but it will kill you all the same.
+
+Laughter is poison to fear.
+
+Death is so terribly final, while life is full of possibilities.
+
+Sleep is good, he said. And books are better.
+
+It is one thing to be clever and another to be wise.
+
+A ruler who hides behind paid executioners soon forgets what death is.
+
+Give me honorable enemies rather than ambitious ones, and
+I'll sleep more easily by night.
+
+#19
+cut
+    cut -c 1-7 file.txt
+    (displays perline, characters 1 to 7)
+
+Sample output:
+
+[sougata@localhost unix_temp]$ cut -c 1-7 GeorgeMartinQuotes.txt
+
+A reade
+The man
+
+Bran th
+'That i
+
+Love is
+
+Laughte
+
+Death i
+
+Sleep i
+
+It is o
+
+A ruler
+
+Give me
+I'll sl
+
+#19
+sort
+    sort filename.txt
+    -r -> reverse order, -n -> numerically
+    sort -k 2n file.txt
+    (sorts on the basis of column 2)
+
+Sample output:
+[sougata@localhost unix_temp]$ sort GeorgeMartinQuotes.txt
+A reader lives a thousand lives before he dies, said Jojen.
+A ruler who hides behind paid executioners soon forgets what death is.
+Bran thought about it. 'Can a man still be brave if he's afraid?'
+Death is so terribly final, while life is full of possibilities.
+Give me honorable enemies rather than ambitious ones, and
+I'll sleep more easily by night.
+It is one thing to be clever and another to be wise.
+Laughter is poison to fear.
+Love is poison. A sweet poison, yes, but it will kill you all the same.
+Sleep is good, he said. And books are better.
+'That is the only time a man can be brave,' his father told him.
+The man who never reads lives only one.
+[sougata@localhost unix_temp]$ sort numbers.txt
+11 85
+14 14
+21 54
+23 21
+45 56
+55 42
+56 95
+65 27
+[sougata@localhost unix_temp]$ sort numbers.txt -r -n
+65 27
+56 95
+55 42
+45 56
+23 21
+21 54
+14 14
+11 85
+[sougata@localhost unix_temp]$ sort numbers.txt -k 2n
+14 14
+23 21
+65 27
+55 42
+21 54
+45 56
+11 85
+56 95
+
+#20
+wc
+    wc filename.txt
+    count words
+    (displays number of lines, words and characters)
+    -l (only lines)
+    -w (only words)
+    -c (only bytes)
+
+Sample output:
+
+[sougata@localhost unix_temp]$ wc GeorgeMartinQuotes.txt
+ 21 125 669 GeorgeMartinQuotes.txt
+[sougata@localhost unix_temp]$ wc -c GeorgeMartinQuotes.txt
+669 GeorgeMartinQuotes.txt
+[sougata@localhost unix_temp]$ wc -w GeorgeMartinQuotes.txt
+125 GeorgeMartinQuotes.txt
+[sougata@localhost unix_temp]$ wc -l GeorgeMartinQuotes.txt
+21 GeorgeMartinQuotes.txt
+
+#21
+vi filename
+    Command Mode: 
+When vi starts up, it is in Command Mode. This mode is where vi interprets any characters we type as commands and thus does not display them in the window. This mode allows us to move through a file, and to delete, copy, or paste a piece of text.
+To enter into Command Mode from any other mode, it requires pressing the [Esc] key. If we press [Esc] when we are already in Command Mode, then vi will beep or flash the screen.
+
+
+    Insert mode: This mode enables you to insert text into the file. Everything that’s typed in this mode is interpreted as input and finally, it is put in the file. The vi always starts in command mode. To enter text, you must be in insert mode. To come in insert mode you simply type i. To get out of insert mode, press the Esc key, which will put you back into command mode.
+
+
+    Last Line Mode(Escape Mode): Line Mode is invoked by typing a colon [:], while vi is in Command Mode. The cursor will jump to the last line of the screen and vi will wait for a command. This mode enables you to perform tasks such as saving files, executing commands.
+
+Sample output:
+
+this file was created by vi editor
+this is line 2
+this is line 4
+this is the last line
+~                                                                                                                         ~                                                                                                                         ~                                                                                                                         ~                                                                                                                         ~                                                                                                                         ~                                                                                                                         ~               
+~
+~
+-- INSERT --
+
+this file was created by vi editor
+this is line 2
+this is line 4
+this is the last line
+~                                                                                                                         ~                                                                                                                         ~                                                                                                                         ~                                                                                                                         ~                                                                                                                         ~                                                                                                                         ~               
+~
+~
+:wq
+
+[sougata@localhost unix_temp]$ vi viFile.txt
+[sougata@localhost unix_temp]$ cat viFile.txt
+this file was created by vi editor
+this is line 2
+this is line 4
+this is the last line
+
+#22
+nano filename
+    (ctrl+o enter, ctrl x)
+
+Sample output:
+
+GNU nano 2.3.1                           File: nanoFile.txt                                                   Modified  
+this file is being edited by nano
+hahahah
+hahahha
+hahahahah
+last line
+
+^G Get Help         ^O WriteOut         ^R Read File        ^Y Prev Page        ^K Cut Text         ^C Cur Pos
+^X Exit             ^J Justify          ^W Where Is         ^V Next Page        ^U UnCut Text       ^T To Spell
+
+[sougata@localhost unix_temp]$ nano nanoFile.txt
+[sougata@localhost unix_temp]$ cat nanoFile.txt
+this file is being edited by nano
+hahahah
+hahahha
+hahahahah
+last line
+
+#23
+
+cmp file1.txt file2.txt
+    /*indicating that the first mismatch found in
+    two files at byte 20 in second line*/
+
+Sample output:
+
+[sougata@localhost unix_temp]$ ls
+another.txt  copy.txt  GeorgeMartinQuotes.txt  nanoFile.txt  new.txt  numbers.txt  viFile.txt
+[sougata@localhost unix_temp]$ cmp nanoFile.txt viFile.txt
+nanoFile.txt viFile.txt differ: byte 11, line 1
+
+         #########################################################################
+
+1) Create .tar archive file
+
+To create an uncompressed tar (.tar) , use -c option with tar command as following:
+$ tar -cvf /path/to/foo.tar /path/to/foo/
+
+Where '/path/to/foo.tar' is the location of resulting tar file, and '/path/to/foo' is the location of the file or directory to use as input.
+
+
+2) Extract .tar archive file
+To extract an uncompressed archive which often has an extension .tar, the command syntax is:
+$ tar -xvf /path/to/foo.tar
+Where /path/to/foo.tar is the absolute/relative path to the location of a tar file.
+
+Sample output:
+
+[sougata@localhost archives]$ tree
+.
+└── toCompress
+    ├── another.txt
+    ├── new.txt
+    └── numbers.txt
+
+1 directory, 3 files
+[sougata@localhost archives]$ tar -cvf compressed.tar toCompress/
+toCompress/
+toCompress/another.txt
+toCompress/new.txt
+toCompress/numbers.txt
+[sougata@localhost archives]$ ls
+compressed.tar  toCompress
+
+[sougata@localhost archives]$ tar -xvf compressed.tar
+toCompress/
+toCompress/another.txt
+toCompress/new.txt
+toCompress/numbers.txt
+
+
+	######  Piping #######
+	
+
+	command_1 | command_2 | command_3 | .... | command_N 
+	
+
+	eg: ls -l | more
+	    sort record.txt | uniq 
+	    (sort and print unique values)
+	    cat sample2.txt | head -7 | tail -5
+	
+Sample output:
+
+[sougata@localhost unix_temp]$ sort numbers.txt -n | tail -n 3
+55 42
+56 95
+65 27
+
+# Transferring Files with NFS
+To configure the server, proceed as follows:
+1.	Prepare the system:
+a.	Open a shell, log in as root and grant write permissions to all users:
+b.	mkdir /srv/nfs
+c.	chgrp users /srv/nfs
+chmod g+w /srv/nfs
+
+
+Make sure users of the same name exist on client and server. Refer to Chapter 5, Managing Users with YaST for a detailed instruction on how to create and manage user accounts.
+2.	Prepare the NFS server:
+a.	Start YaST as root.
+b.	Select Network Services+NFS Server.
+c.	Enable NFS services with Start.
+d.	Open the appropriate firewall port with Open Port in Firewall, if you are using a firewall.
+3.	Export the directories:
+a.	Click Add directory and select /srv/nfs.
+b.	Set the export options to:
+rw,root_squash,async
+c.	Repeat these steps, if you need to export more than one directory.
+4.	Apply your settings and leave YaST. Your NFS server is ready to use.
+To start the NFS server, enter the following command (as root):
+rcnfsserver start
+To stop the server, enter:
+rcnfsserver stop
+To configure the client, proceed as follows:
+1.	Prepare the NFS client:
+a.	Start YaST as root.
+b.	Select Network Services+NFS Client.
+c.	Activate Open Port in Firewall, if using a firewall.
+2.	Import the remote file system:
+a.	Click Add.
+b.	Enter the name or IP address of the NFS server or click choose to automatically scan the network for NFS servers.
+c.	Enter the name of your remote file system or automatically choose it with Select.
+d.	Enter an appropriate mount point, for example /mnt.
+e.	Repeat these steps, if you need to import more than one external directory.
+3.	Apply your settings and leave YaST. Your NFS client is ready to use.
+To manually start the NFS client, enter:
+rcnfs start
+
+
+
+some more useful commands:
+(note: use yum instead of apt for fedora or cent OS)
+	
+
+	apt install default-jre
+	 
+	apt install default-jdk
+	
+
+	apt install maven
+	
+
+	apt install git
+(env variables will be auto configured this way and you won’t require to do any configuration for maven and git and jdk while installing Jenkins, just install suggested plugins and you’re good to go)
+	
+
+	ufw allow 8080
+	
+
+	ufw allow OpenSSH
+	
+
+	ufw status
+	
+
+	ufw enable
+(above commands used to make sure Jenkins is not blocked by firewall)
+	
+
+	java -jar jenkins.war --httpPort=<portno>
+	
+
+	fuser -k 8080/tcp
+(to kill process already listening to port 8080)
+
+
+(remarks: commands may vary slightly for different linux distros)
+
+
+

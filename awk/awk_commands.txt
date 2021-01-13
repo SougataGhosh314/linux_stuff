@@ -1,0 +1,321 @@
+AWK:
+
+AWK Operations:
+(a) Scans a file line by line
+(b) Splits each input line into fields
+(c) Compares input line/fields to pattern
+(d) Performs action(s) on matched lines
+
+
+eg:
+cat > employee.txt 
+
+Sample output:
+[sougata@localhost awk_stuff]$ cat marks.txt
+1)  Amit    Physics  80
+2)  Rahul   Maths    90
+3)  Shyam   Biology  87
+4)  Kedar   English  85
+[sougata@localhost awk_stuff]$ awk 'BEGIN{printf "Sr No\tName\tSub\tMarks\n"} {print}' marks.txt
+Sr No   Name    Sub     Marks
+1)  Amit    Physics  80
+2)  Rahul   Maths    90
+3)  Shyam   Biology  87
+4)  Kedar   English  85
+
+
+awk '{print}' marks.txt
+(prints file)
+
+Sample output:
+
+[sougata@localhost awk_stuff]$ awk '{print}' marks.txt
+1)  Amit    Physics  80
+2)  Rahul   Maths    90
+3)  Shyam   Biology  87
+4)  Kedar   English  85
+
+awk '/manager/ {print}' employee.txt 
+(prints lines with regex: manager)
+
+Sample output:
+
+[sougata@localhost awk_stuff]$ awk '/ish/ {print}' marks.txt
+4)  Kedar   English  85
+
+awk '{print $1,$4}' employee.txt 
+(prints column1 and column 4)
+
+Sample output:
+
+[sougata@localhost awk_stuff]$ awk '{print $2,$4}' marks.txt
+Amit 80
+Rahul 90
+Shyam 87
+Kedar 85
+
+awk ‘BEGIN{max=0;} {if(max<$4) max=$4 fi;}END{print max;}’
+(will print maximum salary)
+
+Sample output:
+
+[sougata@localhost awk_stuff]$ awk 'BEGIN{max=0;} {if(max<$4) max=$4 fi;}END{print max;}' marks.txt
+90
+
+# count and print the number of lines for which a pattern match succeeded:
+[sougata@localhost awk_stuff]$ awk '/a/{++cnt} END {print "Count = ", cnt}' marks.txt
+Count =  3
+
+# print only those lines that contain more than 22 characters
+
+[sougata@localhost awk_stuff]$ awk 'length($0) > 22' marks.txt
+1)  Amit    Physics  80
+2)  Rahul   Maths    90
+3)  Shyam   Biology  87
+4)  Kedar   English  85
+
+
+more awk examples:
+
+
+[sougata@localhost awk_stuff]$ awk 'BEGIN {print "Arguments =", ARGC}' One Two Three Four
+Arguments = 5
+[sougata@localhost awk_stuff]$ awk 'BEGIN {
+>    for (i = 0; i < ARGC - 1; ++i) {
+>       printf "ARGV[%d] = %s\n", i, ARGV[i]
+>    }
+> }' one two three four
+ARGV[0] = awk
+ARGV[1] = one
+ARGV[2] = two
+ARGV[3] = three
+[sougata@localhost awk_stuff]$ awk 'BEGIN { print ENVIRON["USER"] }'
+sougata
+[sougata@localhost awk_stuff]$ awk 'END {print FILENAME}' marks.txt
+marks.txt
+[sougata@localhost awk_stuff]$ awk 'BEGIN {print "FS = " FS}' | cat -vte
+FS =  $
+[sougata@localhost awk_stuff]$ awk 'NF > 2' marks.txt
+1)  Amit    Physics  80
+2)  Rahul   Maths    90
+3)  Shyam   Biology  87
+4)  Kedar   English  85
+
+[sougata@localhost awk_stuff]$ awk '{print $3 "\t" $4}' marks.txt
+Physics 80
+Maths   90
+Biology 87
+English 85
+
+[sougata@localhost awk_stuff]$ awk '/t.s/' marks.txt
+2)  Rahul   Maths    90
+
+[sougata@localhost awk_stuff]$ awk '/^1/' marks.txt
+1)  Amit    Physics  80
+[sougata@localhost awk_stuff]$ awk '/80$/' marks.txt
+1)  Amit    Physics  80
+
+[sougata@localhost awk_stuff]$ echo -e "Call\nTall\nBall" | awk '/[CT]all/'
+Call
+Tall
+
+[sougata@localhost awk_stuff]$ echo -e "Colour\nColor" | awk '/Colou?r/'
+Colour
+Color
+
+[sougata@localhost awk_stuff]$ echo -e "ca\ncat\ncatt" | awk '/cat*/'
+ca
+cat
+catt
+
+[sougata@localhost awk_stuff]$ echo -e "111\n22\n123\n234\n456\n222"  | awk '/2+/'
+22
+123
+234
+222
+
+[sougata@localhost awk_stuff]$ echo -e "Apple Juice\nApple Pie\nApple Tart\nApple Cake" | awk '/Apple (Juice|Cake)/'
+Apple Juice
+Apple Cake
+
+Arrays:
+
+
+[sougata@localhost awk_stuff]$ awk 'BEGIN {
+>    fruits["mango"] = "yellow";
+>    fruits["orange"] = "orange"
+>    print fruits["orange"] "\n" fruits["mango"]
+> }'
+orange
+yellow
+
+[sougata@localhost awk_stuff]$ awk 'BEGIN {
+   fruits["mango"] = "yellow";
+   fruits["orange"] = "orange";
+   delete fruits["orange"];
+   print fruits["orange"]
+}'
+
+
+[sougata@localhost awk_stuff]$ awk 'BEGIN {
+>    array["0,0"] = 100;
+>    array["0,1"] = 200;
+>    array["0,2"] = 300;
+>    array["1,0"] = 400;
+>    array["1,1"] = 500;
+>    array["1,2"] = 600;
+>
+>    # print array elements
+>    print "array[0,0] = " array["0,0"];
+>    print "array[0,1] = " array["0,1"];
+>    print "array[0,2] = " array["0,2"];
+>    print "array[1,0] = " array["1,0"];
+>    print "array[1,1] = " array["1,1"];
+>    print "array[1,2] = " array["1,2"];
+> }'
+array[0,0] = 100
+array[0,1] = 200
+array[0,2] = 300
+array[1,0] = 400
+array[1,1] = 500
+array[1,2] = 600
+
+
+if else blocks:
+
+
+[sougata@localhost awk_stuff]$ awk 'BEGIN {num = 10; if (num % 2 == 0) printf "%d is even number.\n", num }'
+10 is even number.
+
+[sougata@localhost awk_stuff]$ awk 'BEGIN {num = 10; if (num % 2 == 0) printf "%d is even number.\n", num }'
+10 is even number.
+[sougata@localhost awk_stuff]$ awk 'BEGIN {
+>    num = 11; if (num % 2 == 0) printf "%d is even number.\n", num;
+>       else printf "%d is odd number.\n", num
+> }'
+11 is odd number.
+[sougata@localhost awk_stuff]$ awk 'BEGIN {
+>    a = 30;
+>
+>    if (a==10)
+>    print "a = 10";
+>    else if (a == 20)
+>    print "a = 20";
+>    else if (a == 30)
+>    print "a = 30";
+> }'
+a = 30
+
+Loops and continue, break, etc...
+
+
+[sougata@localhost awk_stuff]$ awk 'BEGIN { for (i = 1; i <= 5; ++i) print i }'
+1
+2
+3
+4
+5
+[sougata@localhost awk_stuff]$ awk 'BEGIN {i = 1; while (i < 6) { print i; ++i } }'
+1
+2
+3
+4
+5
+[sougata@localhost awk_stuff]$ awk 'BEGIN {i = 1; do { print i; ++i } while (i < 6) }'
+1
+2
+3
+4
+5
+[sougata@localhost awk_stuff]$ awk 'BEGIN {
+>    sum = 0; for (i = 0; i < 20; ++i) {
+>       sum += i; if (sum > 50) break; else print "Sum =", sum
+>    }
+> }'
+Sum = 0
+Sum = 1
+Sum = 3
+Sum = 6
+Sum = 10
+Sum = 15
+Sum = 21
+Sum = 28
+Sum = 36
+Sum = 45
+[sougata@localhost awk_stuff]$ awk 'BEGIN {
+>    for (i = 1; i <= 20; ++i) {
+>       if (i % 2 == 0) print i ; else continue
+>    }
+> }'
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+[sougata@localhost awk_stuff]$ awk 'BEGIN {
+>    sum = 0; for (i = 0; i < 20; ++i) {
+>       sum += i; if (sum > 50) exit(10); else print "Sum =", sum
+>    }
+> }'
+Sum = 0
+Sum = 1
+Sum = 3
+Sum = 6
+Sum = 10
+Sum = 15
+Sum = 21
+Sum = 28
+Sum = 36
+Sum = 45
+[sougata@localhost awk_stuff]$ echo $?
+10
+
+[sougata@localhost awk_stuff]$ nano function.awk
+
+#!/bin/awk -f
+
+# Returns minimum number
+function find_min(num1, num2){
+   if (num1 < num2)
+   return num1
+   return num2
+}
+
+# Returns maximum number
+function find_max(num1, num2){
+   if (num1 > num2)
+   return num1
+   return num2
+}
+
+# Main function
+function main(num1, num2){
+   # Find minimum number
+   result = find_min(10, 20)
+   print "Minimum =", result
+
+   # Find maximum number
+   result = find_max(10, 20)
+   print "Maximum =", result
+}
+
+# Script execution starts here
+BEGIN {
+   main(10, 20)
+}
+{
+
+}
+END {
+
+}
+
+[sougata@localhost awk_stuff]$ chmod +x function.awk
+[sougata@localhost awk_stuff]$ ./function.awk
+Minimum = 10
+Maximum = 20
